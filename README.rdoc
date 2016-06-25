@@ -20,19 +20,17 @@ This gem was made possible by YP.com
 
 Records test results and generates XML files (for junit hudson plugin
 for example) at the end of the test run. The report directory is cleaned
-between test runs. To disable:
+between test runs. To disable, for example in your test helper:
 
-```Ruby
-# test/helper.rb
-Minitest::Ci.clean = false
+    Minitest::Ci.clean = false
 
-# Rakefile (optional, but recommended!)
-task :ci_cleanup do
-  require 'minitest/ci'
-  Minitest::Ci.new.start
-end
-task :test => %w[ci_cleanup test:one test:two]
-```
+To cleanup after runs, please place in your Rakefile:
+
+    task :ci_cleanup do
+      require 'minitest/ci'
+      Minitest::Ci.new.start
+    end
+    task :test => %w[ci_cleanup test:one test:two]
 
 == REQUIREMENTS:
 
