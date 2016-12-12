@@ -24,6 +24,7 @@ module Minitest
     self.report_dir = 'test/reports'
     self.clean      = true
     self.working_dir = Dir.pwd
+    self.use_module_filename = true
 
     attr_accessor :io
     attr_accessor :options
@@ -54,7 +55,8 @@ module Minitest
 
       Dir.chdir report_dir do
         results.each do |name, resultz|
-          File.open "#{CGI.escape(name.to_s.underscore)}-TEST.xml"[0, 255], "w" do |f|
+          report_filename = use_module_filename? ? "TEST-#{CGI.escape(name.to_s)}.xml" : "#{CGI.escape(name.to_s.underscore)}-TEST.xml"
+          File.open report_filename[0, 255], "w" do |f|
             f.puts generate_results name, resultz
           end
         end
@@ -124,5 +126,8 @@ module Minitest
       options.fetch(:ci_clean, self.class.clean)
     end
 
+    def use_module_filename?
+      options.fetch(:ci_module_filename, self.class.use_module_filename)
+    end
   end
 end
