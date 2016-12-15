@@ -24,7 +24,7 @@ module Minitest
     self.report_dir = 'test/reports'
     self.clean      = true
     self.working_dir = Dir.pwd
-    self.use_module_filename = true
+    self.use_structured_filenames = false
 
     attr_accessor :io
     attr_accessor :options
@@ -55,7 +55,7 @@ module Minitest
 
       Dir.chdir report_dir do
         results.each do |name, resultz|
-          report_filename = use_module_filename? ? "TEST-#{CGI.escape(name.to_s)}.xml" : "#{CGI.escape(name.to_s.underscore)}-TEST.xml"
+          report_filename = use_structured_filenames? ? "TEST-#{CGI.escape(name.to_s)}.xml" : "#{CGI.escape(name.to_s.underscore)}-TEST.xml"
           File.open report_filename[0, 255], "w" do |f|
             f.puts generate_results name, resultz
           end
@@ -126,8 +126,8 @@ module Minitest
       options.fetch(:ci_clean, self.class.clean)
     end
 
-    def use_module_filename?
-      options.fetch(:ci_module_filename, self.class.use_module_filename)
+    def use_structured_filenames?
+      options.fetch(:ci_structured_filenames, self.class.use_structured_filenames)
     end
   end
 end
