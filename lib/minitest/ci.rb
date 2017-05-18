@@ -132,7 +132,7 @@ module Minitest
     end
 
     def report_name(name)
-      "TEST-#{CGI.escape(name.to_s.gsub(/\W+/, '_'))}.xml"[0, 255]
+      "TEST-#{Digest::SHA1.hexdigest(CGI.escape(name.to_s.gsub(/\W+/, '_')))}.xml"
     end
   end
 end
