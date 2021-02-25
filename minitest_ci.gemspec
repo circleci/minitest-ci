@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/circleci/minitest-ci'
   s.summary     = 'Minitest JUnit XML formatter'
   s.description = 'Minitest Junit XML results that CircleCI can read.'
-
+  s.licenses    = ['MIT']
+  
   s.required_rubygems_version = '>= 1.3.6'
 
   s.add_dependency 'minitest', '>= 5.0.6'
